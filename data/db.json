@@ -1,0 +1,78 @@
+{
+  "songs":
+  [
+      {
+        "title": "I'm Yours",
+        "artist": "Jason Mraz",
+        "album": "We Sing, We Dance, we Steal Things",
+        "published_date":"2008-05-15"
+      },
+      {
+        "title": "Kryptonite",
+        "artist": "3 Doors Down",
+        "album": "The Better Life",
+        "published_date":"2001-01-17"
+      },
+      {
+        "title": "Timber",
+        "artist": "Pit Bull",
+        "album": "The Better Life",
+        "published_date":"2013-10-07"
+      },
+      {
+        "title": "Dark Horse",
+        "artist": "Katy Perry",
+        "album": "Single",
+        "published_date":"2013-12-17"
+      },
+      {
+        "title": "Counting Stars",
+        "artist": "One Republic",
+        "album": "Single",
+        "published_date":"2013-06-14"
+      },
+      {
+        "title": "Demons",
+        "artist": "Imagine Dragons",
+        "album": "Single",
+        "published_date":"2013-11-11"
+      },
+      {
+        "title": "Drink A Beer",
+        "artist": "Luke Bryan",
+        "album": "Crash My Party",
+        "published_date":"2013-11-11"
+      },
+      {
+        "title": "Burn",
+        "artist": "Ellie Goulding",
+        "album": "Halcyon",
+        "published_date":"2013-03-13"
+      },
+      {
+        "title": "Story Of My Life",
+        "artist": "One Direction ",
+        "album": "Halcyon",
+        "published_date":"2013-11-25"
+      },
+      {
+        "title": "Let Her Go",
+        "artist": "Passenger",
+        "album": "All the Little Lights",
+        "published_date":"2012-07-12"
+      },
+      {
+        "title": "Watch Me",
+        "artist": "Silentó",
+        "album": "Watch Me (Whip / Nae Nae)",
+        "published_date":"2015-05-07"
+      },
+      {
+        "title": "Closer",
+        "artist": "Chain Smokers",
+        "album": "Watch Me (Whip / Nae Nae)",
+        "published_date": "2016-07-29"
+      }
+  ]
+}
+
