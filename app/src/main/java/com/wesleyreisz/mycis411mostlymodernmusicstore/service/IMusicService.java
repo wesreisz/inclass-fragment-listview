@@ -11,4 +11,6 @@ public interface IMusicService {
     List<Song> findAll();
 
     Song findOne(String name);
+
+    void refresh();
 }

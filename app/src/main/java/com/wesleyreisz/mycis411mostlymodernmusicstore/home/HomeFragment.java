@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
         mSongAdapter.notifyDataSetChanged();
         listViewSongs.setAdapter(mSongAdapter);
 
-        new MyMusicServiceImpl(this.getContext(), mSongAdapter);
+        new MyMusicServiceImpl(getContext(),mSongAdapter).findAll();
 
         return view;
     }

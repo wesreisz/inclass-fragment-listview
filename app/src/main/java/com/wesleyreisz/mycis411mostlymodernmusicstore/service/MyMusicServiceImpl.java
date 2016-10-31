@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.wesleyreisz.mycis411mostlymodernmusicstore.home.adapter.SongAdapter;
 import com.wesleyreisz.mycis411mostlymodernmusicstore.home.model.Song;
+import com.wesleyreisz.mycis411mostlymodernmusicstore.util.HttpUtil;
+import com.wesleyreisz.mycis411mostlymodernmusicstore.util.StringUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,29 +34,43 @@ public class MyMusicServiceImpl implements IMusicService {
     private static final String DEBUG_TAG = "Music";
     private Context mContext;
     private SongAdapter mSongAdapter;
+    private List<Song> songs = new ArrayList<Song>();
+
     public MyMusicServiceImpl(Context context, SongAdapter songAdapter){
         mContext = context;
         mSongAdapter = songAdapter;
-        new GetMyMusicAsyncTask().execute(MY_MUSIC_ENDPOINT);
     }
-
-    List<Song> songs = new ArrayList<Song>();
 
     @Override
     public List<Song> findAll() {
-        return null;
+        if (songs.size()<=0)
+            refresh();
+
+        return songs;
     }
 
     @Override
     public Song findOne(String name) {
-        return null;
+        if (songs.size()<=0)
+            refresh();
+
+        for(Song song:songs){
+            if(song.getSongTitle().equals(name)){
+                return song;
+            }
+        }
+        return new Song();
+    }
+
+    public void refresh(){
+        new GetMyMusicAsyncTask().execute(MY_MUSIC_ENDPOINT);
     }
 
     protected class GetMyMusicAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
             try {
-                return downloadUrl(urls[0]);
+                return HttpUtil.downloadUrl(urls[0]);
             } catch (IOException e) {
                 return "Unable to retrieve web page. URL may be invalid.";
             }
@@ -74,7 +90,7 @@ public class MyMusicServiceImpl implements IMusicService {
                     song.setSongTitle(entryObjects.getString("title"));
                     song.setAlbumTitle(entryObjects.getString("album"));
                     song.setArtistName(entryObjects.getString("artist"));
-                    song.setSongPublishedDate(getDate(entryObjects.getString("published_date")));
+                    song.setSongPublishedDate(StringUtil.getDate(entryObjects.getString("published_date")));
                     songs.add(song);
                 }
 
@@ -89,49 +105,5 @@ public class MyMusicServiceImpl implements IMusicService {
             mSongAdapter.notifyDataSetChanged();
         }
 
-        // Reads a url
-        private String downloadUrl(String myurl) throws IOException {
-            InputStream is = null;
-
-            try {
-                URL url = new URL(myurl);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(10000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("GET");
-                conn.setDoInput(true);
-                // Starts the query
-                conn.connect();
-                int response = conn.getResponseCode();
-                Log.d(DEBUG_TAG, "The response is: " + response);
-                is = conn.getInputStream();
-
-                // Convert the InputStream into a string
-                String contentAsString = readIt(is);
-                return contentAsString;
-            } finally {
-                if (is != null) {
-                    is.close();
-                }
-            }
-        }
-
-        // Reads an InputStream and converts it to a String.
-        public String readIt(InputStream stream) throws IOException {
-            BufferedReader r = new BufferedReader(new InputStreamReader(stream));
-            StringBuilder total = new StringBuilder();
-            String line;
-            while ((line = r.readLine()) != null) {
-                total.append(line).append('\n');
-            }
-            return total.toString();
-        }
-
-    }
-
-    private static Date getDate(String input) {
-        Calendar c = Calendar.getInstance();
-        c.set(1,1,1,0,0);//need to fix
-        return c.getTime();
     }
 }

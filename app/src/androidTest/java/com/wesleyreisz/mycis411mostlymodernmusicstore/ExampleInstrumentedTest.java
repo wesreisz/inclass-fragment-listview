@@ -46,6 +46,22 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
+    public void testFindAllServiceCall(){
+        MockMusicServiceImpl service = new MockMusicServiceImpl();
+        List<Song> songs = service.findAll();
+        Assert.assertNotNull(songs);
+
+        boolean testResultFound=false;
+        for(Song song:songs){
+            if (song.getSongTitle().equalsIgnoreCase("Dark Horse")){
+                testResultFound=true;
+            }
+        }
+        Assert.assertEquals(true,testResultFound);
+    }
+
+
+    @Test
     public void testFindOne(){
         MockMusicServiceImpl service = new MockMusicServiceImpl();
         Song song = service.findOne("Dark Horse");
