@@ -11,7 +11,7 @@ import java.util.List;
  * Created by wesleyreisz on 10/16/16.
  */
 
-public class MockMusicService {
+public class MockMusicServiceImpl implements IMusicService {
     private List<Song> songs;
     {
         songs = new ArrayList<Song>();
@@ -28,10 +28,12 @@ public class MockMusicService {
         songs.add(new Song("Watch Me","Silentó","Watch Me (Whip / Nae Nae)",getDate(2015, 5, 7)));
     }
 
+    @Override
     public List<Song> findAll(){
         return songs;
     }
 
+    @Override
     public Song findOne(String name){
         for(Song song:songs){
             if(song.getSongTitle().equals(name)){

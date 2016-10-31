@@ -11,15 +11,17 @@ import android.widget.ListView;
 import com.wesleyreisz.mycis411mostlymodernmusicstore.R;
 import com.wesleyreisz.mycis411mostlymodernmusicstore.home.adapter.SongAdapter;
 import com.wesleyreisz.mycis411mostlymodernmusicstore.home.model.Song;
-import com.wesleyreisz.mycis411mostlymodernmusicstore.service.MockMusicService;
+import com.wesleyreisz.mycis411mostlymodernmusicstore.service.MockMusicServiceImpl;
+import com.wesleyreisz.mycis411mostlymodernmusicstore.service.MyMusicServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-
+    List<Song> songs = new ArrayList<Song>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -31,10 +33,12 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        List<Song> songs = new MockMusicService().findAll();
+        new MyMusicServiceImpl(this.getContext());
         ListView listViewSongs = (ListView)view.findViewById(R.id.listViewMusicList);
         SongAdapter songAdapter = new SongAdapter(getActivity(),R.layout.fragment_home,songs);
+        songAdapter.notifyDataSetChanged();
         listViewSongs.setAdapter(songAdapter);
+
 
         return view;
     }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.wesleyreisz.mycis411mostlymodernmusicstore.service.MockMusicService;
+import com.wesleyreisz.mycis411mostlymodernmusicstore.service.MockMusicServiceImpl;
 import com.wesleyreisz.mycis411mostlymodernmusicstore.home.model.Song;
 
 import org.junit.Assert;
@@ -32,7 +32,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void testFindAll(){
-        MockMusicService service = new MockMusicService();
+        MockMusicServiceImpl service = new MockMusicServiceImpl();
         List<Song> songs = service.findAll();
         Assert.assertNotNull(songs);
 
@@ -47,7 +47,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void testFindOne(){
-        MockMusicService service = new MockMusicService();
+        MockMusicServiceImpl service = new MockMusicServiceImpl();
         Song song = service.findOne("Dark Horse");
         Assert.assertEquals("Dark Horse", song.getSongTitle());
         Assert.assertEquals("Katy Perry", song.getArtistName());
